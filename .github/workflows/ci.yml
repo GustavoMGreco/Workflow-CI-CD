@@ -1,0 +1,36 @@
+name: CI Pipeline - Validação da Aplicação
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Formatação (Prettier)
+        run: npm run format:check
+
+      - name: Análise Estática (ESLint)
+        run: npm run lint
+
+      - name: Executar Testes Unitários e Integração
+        run: npm test
+
+      - name: Construir Imagem Docker
+        run: docker build -t crud-js-app:${{ github.sha }} .

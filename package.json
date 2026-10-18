@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "start": "node src/app.js"
   },
   "dependencies": {
