@@ -29,6 +29,18 @@ app.get('/usuarios', (_req, res) => {
   return res.json(usuarios);
 });
 
+app.get('/usuarios/:cpf', (req, res) => {
+  const usuario = usuarios.find((u) => u.cpf === req.params.cpf);
+  if (!usuario) {
+    return res.status(404).json({ erro: 'Usuário não encontrado' });
+  }
+  return res.json(usuario);
+});
+
+app.get('/health', (_req, res) => {
+  return res.json({ status: 'ok' });
+});
+
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
