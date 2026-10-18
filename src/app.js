@@ -1,4 +1,3 @@
-// src/app.js
 const express = require('express');
 const calculaIdade = require('./calculaIdade');
 
@@ -14,7 +13,9 @@ app.post('/usuarios', (req, res) => {
   const { cpf, nome, dataNascimento } = req.body;
 
   if (!cpf || !nome || !dataNascimento) {
-    return res.status(400).json({ erro: 'cpf, nome e dataNascimento são obrigatórios' });
+    return res
+      .status(400)
+      .json({ erro: 'cpf, nome e dataNascimento são obrigatórios' });
   }
 
   const idade = calculaIdade(dataNascimento);
